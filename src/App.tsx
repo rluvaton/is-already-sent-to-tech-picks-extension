@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect } from 'react';
 import './App.css';
+import Config from './pages/Config/Config';
+import { useLocalStorage } from './custom-hooks/useLocalStorage';
 
 function App() {
+  const [directInvitationUrl, setDirectInvitationUrl] = useLocalStorage('directInvitationUrl');
+
+  useEffect(() => {
+    console.log({ directInvitationUrl });
+  }, [directInvitationUrl]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!directInvitationUrl && <Config setDirectInvitationUrl={setDirectInvitationUrl}/>}
+      {directInvitationUrl && <span>ToDo</span>}
     </div>
   );
 }
