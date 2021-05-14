@@ -1,0 +1,11 @@
+.valid-whatsapp-icon {
+  color: green;
+}
+
+.invalid-whatsapp-icon {
+  color: red;
+}
+
+.whatapp-invitation-url-container input {
+  width: 400px;
+}

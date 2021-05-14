@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import 'antd/dist/antd.css';
 import './App.css';
 import Config from './pages/Config/Config';
 import { useLocalStorage } from './custom-hooks/useLocalStorage';
