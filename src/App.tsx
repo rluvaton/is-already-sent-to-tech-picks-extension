@@ -1,20 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'antd/dist/antd.css';
 import './App.css';
 import Config from './pages/Config/Config';
+import { ConfigModel } from './pages/Config/config.model';
 import { useLocalStorage } from './custom-hooks/useLocalStorage';
 
 function App() {
-  const [directInvitationUrl, setDirectInvitationUrl] = useLocalStorage('directInvitationUrl');
-
-  useEffect(() => {
-    console.log({ directInvitationUrl });
-  }, [directInvitationUrl]);
+  const [config, setConfig] = useLocalStorage<ConfigModel | undefined>('config');
 
   return (
     <div className="App">
-      {!directInvitationUrl && <Config setDirectInvitationUrl={setDirectInvitationUrl}/>}
-      {directInvitationUrl && <span>ToDo</span>}
+      {!config && <Config config={config} setConfig={setConfig}/>}
+      {config && <span>ToDo</span>}
+      <button onClick={() => setConfig(undefined as any)}>Clear</button>
     </div>
   );
 }

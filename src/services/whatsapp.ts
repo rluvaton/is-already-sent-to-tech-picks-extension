@@ -1,4 +1,4 @@
-const whatsappChatInventionLinkRegex = /^https?:\/\/chat\.whatsapp\.com\/([a-zA-Z0-9]+)$/;
+export  const whatsappChatInventionLinkRegex = /^https?:\/\/chat\.whatsapp\.com\/([a-zA-Z0-9]+)$/;
 
 export function isValidWhatsappChatInvitationLink(url: string): boolean {
   return whatsappChatInventionLinkRegex.test(url);

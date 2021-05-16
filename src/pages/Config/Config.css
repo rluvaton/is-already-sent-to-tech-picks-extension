@@ -1,0 +1,13 @@
+.privacy-note {
+  display: flex;
+  margin-left: 15px;
+}
+
+.privacy-note-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.privacy-note-divider {
+  margin-bottom: 5px !important;
+}
