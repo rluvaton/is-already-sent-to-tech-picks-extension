@@ -15,7 +15,7 @@ const WhatsAppInvitationLinkInput = ({ hidden }: { hidden: boolean }) => {
   }, [whatsAppInvitationUrl]);
 
   return (
-    <Form.Item className={'whatapp-invitation-url-container input-column'}
+    <Form.Item className={'whatapp-invitation-url-container'}
                label="WhatsApp group invitation link"
                name="whatsappGroupInvitationLink"
                hidden={hidden}

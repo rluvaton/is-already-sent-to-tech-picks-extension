@@ -22,7 +22,7 @@ const layout: FormProps = {
   labelCol: {
     xs: { span: 24 },
     sm: { span: 24 },
-    md: { span: 8 }
+    md: { span: 8 },
   },
   wrapperCol: {
     xs: { span: 24 },
@@ -70,7 +70,6 @@ const Config = ({ config, setConfig }: ConfigProps) => {
           <Form.Item
             label="WhatsApp send type"
             name="whatsappSentType"
-            className="input-column"
           >
             <Select defaultValue={LinkType.NONE} onChange={(value) => setLinkType(value)}>
               <Option title="I only want to know if a link is already sent or not" value={LinkType.NONE}>None</Option>
