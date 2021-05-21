@@ -15,11 +15,11 @@ const WhatsAppInvitationLinkInput = ({ hidden }: { hidden: boolean }) => {
   }, [whatsAppInvitationUrl]);
 
   return (
-    <Form.Item className={'whatapp-invitation-url-container'}
+    <Form.Item className={'whatapp-invitation-url-container input-column'}
                label="WhatsApp group invitation link"
                name="whatsappGroupInvitationLink"
                hidden={hidden}
-               tooltip={<span>Why do we need it?<br/>Because Whatsapp doesn't support messaging a group we need that link to get around it</span>}
+               tooltip={<span>Why do we need it?<br/>Because Whatsapp doesn't support messaging a group programmatically we need that link to get around it</span>}
                rules={[
                  { required: !hidden, message: 'Please paste the link or select other link type' },
                  { pattern: whatsappChatInventionLinkRegex, message: 'Please put a valid link' }

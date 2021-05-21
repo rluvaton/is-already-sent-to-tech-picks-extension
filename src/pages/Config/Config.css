@@ -11,3 +11,11 @@
 .privacy-note-divider {
   margin-bottom: 5px !important;
 }
+
+.input-column .ant-form-item-control {
+  margin-left: 5px;
+}
+
+.submit-column .ant-form-item-control {
+  padding-left: 5px;
+}

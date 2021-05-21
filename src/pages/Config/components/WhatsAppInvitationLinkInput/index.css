@@ -6,10 +6,3 @@
   color: red;
 }
 
-.whatapp-invitation-url-container .ant-form-item-explain > div[role="alert"] {
-  float: left;
-}
-
-.whatapp-invitation-url-container input {
-  width: 400px;
-}

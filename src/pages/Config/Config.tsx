@@ -5,6 +5,9 @@ import WhatsAppInvitationLinkInput from './components/WhatsAppInvitationLinkInpu
 import { LinkType } from './link-type.enum';
 import { getWhatsAppDirectInvitationUrlFromRegularInvitationUrl } from '../../services/whatsapp';
 import { ConfigModel } from './config.model';
+import { FormProps } from 'antd/lib/form/Form';
+import { FormItemLabelProps } from 'antd/lib/form/FormItemLabel';
+import { FormItemInputProps } from 'antd/lib/form/FormItemInput';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -14,6 +17,28 @@ export interface ConfigProps {
   config?: ConfigModel;
   setConfig: Dispatch<SetStateAction<ConfigModel | undefined>>;
 }
+
+const layout: FormProps = {
+  labelCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 8 }
+  },
+  wrapperCol: {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 16 },
+  },
+  labelAlign: 'right',
+};
+
+const saveLayout: FormItemLabelProps & FormItemInputProps = {
+  wrapperCol: {
+    md: { offset: 8, span: 2 },
+    span: 24
+  },
+  labelCol: {span: 0}
+};
 
 const Config = ({ config, setConfig }: ConfigProps) => {
   const [linkType, setLinkType] = useState<LinkType>(LinkType.NONE);
@@ -37,6 +62,7 @@ const Config = ({ config, setConfig }: ConfigProps) => {
 
       <div>
         <Form
+          {...layout}
           initialValues={tempConfig}
           onValuesChange={(formValues) => setTempConfig({ ...tempConfig, ...formValues })}
           onFinish={onFinish}
@@ -44,20 +70,23 @@ const Config = ({ config, setConfig }: ConfigProps) => {
           <Form.Item
             label="WhatsApp send type"
             name="whatsappSentType"
+            className="input-column"
           >
             <Select defaultValue={LinkType.NONE} onChange={(value) => setLinkType(value)}>
               <Option title="I only want to know if a link is already sent or not" value={LinkType.NONE}>None</Option>
               <Option title="Open WhatsApp and propose to send the checked link to group"
-                      value={LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}>Prepare message to WhatsApp Group (Coming Soon)</Option>
+                      value={LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}>Prepare message to WhatsApp Group (Coming
+                Soon)</Option>
               <Option title="Open WhatsApp and propose to send the checked link to the opened chat"
-                      value={LinkType.SELECT_ON_WHATSAPP_OPEN}>Manually Select When Opening WhatsApp (Coming Soon)</Option>
+                      value={LinkType.SELECT_ON_WHATSAPP_OPEN}>Manually Select When Opening WhatsApp (Coming
+                Soon)</Option>
             </Select>
           </Form.Item>
 
 
           <WhatsAppInvitationLinkInput hidden={linkType !== LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}/>
 
-          <Form.Item>
+          <Form.Item {...saveLayout} className="submit-column">
             <Button type="primary" htmlType="submit">Save</Button>
           </Form.Item>
         </Form>
