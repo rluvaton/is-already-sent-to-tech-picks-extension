@@ -20,7 +20,7 @@ const WhatsAppInvitationLinkInput = ({ hidden }: { hidden: boolean }) => {
                name="whatsappGroupInvitationLink"
                hidden={hidden}
                rules={[
-                 { required: true, message: 'Please paste the link or select other link type' },
+                 { required: !hidden, message: 'Please paste the link or select other link type' },
                  { pattern: whatsappChatInventionLinkRegex, message: 'Please put a valid link' }
                ]}>
       <Input prefix={<WhatsAppOutlined className={`${isLinkValid ? '' : 'in'}valid-whatsapp-icon`}/>}

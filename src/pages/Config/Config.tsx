@@ -6,24 +6,28 @@ import { LinkType } from './link-type.enum';
 import { getWhatsAppDirectInvitationUrlFromRegularInvitationUrl } from '../../services/whatsapp';
 import { ConfigModel } from './config.model';
 
-
 const { Content } = Layout;
 const { Option } = Select;
 const { Text } = Typography;
 
-const Config = ({ config, setConfig }: { config?: ConfigModel, setConfig: Dispatch<SetStateAction<ConfigModel | undefined>> }) => {
+export interface ConfigProps {
+  config?: ConfigModel;
+  setConfig: Dispatch<SetStateAction<ConfigModel | undefined>>;
+}
+
+const Config = ({ config, setConfig }: ConfigProps) => {
   const [linkType, setLinkType] = useState<LinkType>(LinkType.NONE);
   const [tempConfig, setTempConfig] = useState(config);
 
   const onFinish = (values: any) => {
-    const progressValues = {...values};
+    const progressValues = { ...values };
     console.log('Success:', values);
 
-		switch(values.whatsappSentType) {
-			case LinkType.PREDEFINED_WHATSAPP_GROUP_LINK:
-				progressValues.whatsappGroupDirectInvitationLink = getWhatsAppDirectInvitationUrlFromRegularInvitationUrl(values.whatsappGroupInvitationLink);
-				break;
-		}
+    switch (values.whatsappSentType) {
+      case LinkType.PREDEFINED_WHATSAPP_GROUP_LINK:
+        progressValues.whatsappGroupDirectInvitationLink = getWhatsAppDirectInvitationUrlFromRegularInvitationUrl(values.whatsappGroupInvitationLink);
+        break;
+    }
 
     setConfig(progressValues);
   };
@@ -34,7 +38,7 @@ const Config = ({ config, setConfig }: { config?: ConfigModel, setConfig: Dispat
       <div>
         <Form
           initialValues={tempConfig}
-					onValuesChange={(formValues) =>  setTempConfig({...tempConfig, ...formValues})}
+          onValuesChange={(formValues) => setTempConfig({ ...tempConfig, ...formValues })}
           onFinish={onFinish}
         >
           <Form.Item
@@ -44,16 +48,14 @@ const Config = ({ config, setConfig }: { config?: ConfigModel, setConfig: Dispat
             <Select defaultValue={LinkType.NONE} onChange={(value) => setLinkType(value)}>
               <Option title="I only want to know if a link is already sent or not" value={LinkType.NONE}>None</Option>
               <Option title="Open WhatsApp and propose to send the checked link to group"
-                      value={LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}>Prepare message to WhatsApp Group</Option>
-              <Option title="Open WhatsApp and propose to send the checked link to user"
-                      value={LinkType.PREDEFINED_NUMBER}>Prepare message to WhatsApp Number</Option>
+                      value={LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}>Prepare message to WhatsApp Group (Coming Soon)</Option>
               <Option title="Open WhatsApp and propose to send the checked link to the opened chat"
-                      value={LinkType.SELECT_ON_WHATSAPP_OPEN}>Manually Select When Opening WhatsApp</Option>
+                      value={LinkType.SELECT_ON_WHATSAPP_OPEN}>Manually Select When Opening WhatsApp (Coming Soon)</Option>
             </Select>
           </Form.Item>
 
 
-					<WhatsAppInvitationLinkInput hidden={linkType !== LinkType.PREDEFINED_WHATSAPP_GROUP_LINK} />
+          <WhatsAppInvitationLinkInput hidden={linkType !== LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}/>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">Save</Button>
