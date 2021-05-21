@@ -19,6 +19,7 @@ const WhatsAppInvitationLinkInput = ({ hidden }: { hidden: boolean }) => {
                label="WhatsApp Group invitation link"
                name="whatsappGroupInvitationLink"
                hidden={hidden}
+               tooltip={<span>Why do we need it?<br/>Because Whatsapp doesn't support messaging a group we need that link to get around it</span>}
                rules={[
                  { required: !hidden, message: 'Please paste the link or select other link type' },
                  { pattern: whatsappChatInventionLinkRegex, message: 'Please put a valid link' }
