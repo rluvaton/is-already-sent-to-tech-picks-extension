@@ -42,7 +42,7 @@ const Config = ({ config, setConfig }: ConfigProps) => {
           onFinish={onFinish}
         >
           <Form.Item
-            label="WhatsApp Send Type"
+            label="WhatsApp send type"
             name="whatsappSentType"
           >
             <Select defaultValue={LinkType.NONE} onChange={(value) => setLinkType(value)}>
