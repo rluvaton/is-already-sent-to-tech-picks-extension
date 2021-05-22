@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'antd/dist/antd.css';
 import './App.css';
+import Config from './pages/Config/Config';
+import { ConfigModel } from './pages/Config/config.model';
+import { useLocalStorage } from './custom-hooks/useLocalStorage';
 
 function App() {
+  const [config, setConfig] = useLocalStorage<ConfigModel | undefined>('config');
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {!config && <Config config={config} setConfig={setConfig}/>}
+
+      {config && <span>ToDo</span>}
+
+      {/* TODO - Remove this before merging to master branch */}
+      <button onClick={() => setConfig(undefined as any)}>Clear</button>
     </div>
   );
 }
