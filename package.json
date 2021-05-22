@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@types/chrome": "^0.0.141",
     "puppeteer": "^9.1.1"
   }
 }

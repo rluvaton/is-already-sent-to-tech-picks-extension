@@ -4,6 +4,7 @@ import './App.css';
 import Config from './pages/Config/Config';
 import { ConfigModel } from './pages/Config/config.model';
 import { useLocalStorage } from './custom-hooks/useLocalStorage';
+import WebsiteTester from './pages/WebsiteTester/WebsiteTester';
 
 function App() {
   const [config, setConfig] = useLocalStorage<ConfigModel | undefined>('config');
@@ -12,7 +13,7 @@ function App() {
     <div className="App">
       {!(config?.whatsappSentType) && <Config config={config} setConfig={setConfig}/>}
 
-      {config?.whatsappSentType && <span>ToDo</span>}
+      {config?.whatsappSentType && <WebsiteTester config={config}/>}
 
       {/* TODO - Remove this before merging to master branch */}
       <button onClick={() => setConfig(undefined as any)}>Clear</button>
