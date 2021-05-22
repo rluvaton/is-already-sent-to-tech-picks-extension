@@ -15,3 +15,8 @@
 .submit-column .ant-form-item-control {
   padding-left: 5px;
 }
+
+.config-page {
+  padding: 50px;
+  width: 800px !important;
+}

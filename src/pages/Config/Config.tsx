@@ -58,7 +58,7 @@ const Config = ({ config, setConfig }: ConfigProps) => {
   };
 
   return (
-    <Content style={{ padding: '50px' }}>
+    <Content className="config-page">
 
       <div>
         <Form
