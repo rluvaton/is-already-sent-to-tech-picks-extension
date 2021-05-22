@@ -13,7 +13,7 @@ const { Content } = Layout;
 const { Option } = Select;
 const { Text } = Typography;
 
-export interface ConfigProps {
+interface ConfigProps {
   config?: ConfigModel;
   setConfig: Dispatch<SetStateAction<ConfigModel | undefined>>;
 }
@@ -42,7 +42,9 @@ const saveLayout: FormItemLabelProps & FormItemInputProps = {
 
 const Config = ({ config, setConfig }: ConfigProps) => {
   const [linkType, setLinkType] = useState<LinkType>(LinkType.NONE);
-  const [tempConfig, setTempConfig] = useState(config);
+  const [tempConfig, setTempConfig] = useState(config || {
+    whatsappSentType: LinkType.NONE,
+  });
 
   const onFinish = (values: any) => {
     const progressValues = { ...values };
@@ -71,7 +73,7 @@ const Config = ({ config, setConfig }: ConfigProps) => {
             label="WhatsApp send type"
             name="whatsappSentType"
           >
-            <Select defaultValue={LinkType.NONE} onChange={(value) => setLinkType(value)}>
+            <Select onChange={(value: LinkType) => setLinkType(value)}>
               <Option title="I only want to know if a link is already sent or not" value={LinkType.NONE}>None</Option>
               <Option title="Open WhatsApp and propose to send the checked link to group"
                       value={LinkType.PREDEFINED_WHATSAPP_GROUP_LINK}>Prepare message to WhatsApp Group (Coming
