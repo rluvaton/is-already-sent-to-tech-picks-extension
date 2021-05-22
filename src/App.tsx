@@ -10,9 +10,9 @@ function App() {
 
   return (
     <div className="App">
-      {!config && <Config config={config} setConfig={setConfig}/>}
+      {!(config?.whatsappSentType) && <Config config={config} setConfig={setConfig}/>}
 
-      {config && <span>ToDo</span>}
+      {config?.whatsappSentType && <span>ToDo</span>}
 
       {/* TODO - Remove this before merging to master branch */}
       <button onClick={() => setConfig(undefined as any)}>Clear</button>
