@@ -7,6 +7,7 @@ import './WebsiteTester.css'
 import * as chromeExtensionService from '../../services/chrome-extension';
 import SendButton from './components/SendButton';
 import { LinkType } from '../Config/link-type.enum';
+import * as techPicksArchive from '../../services/techpicks-archive';
 
 type Props = {
   config: ConfigModel,
@@ -43,9 +44,13 @@ const WebsiteTester = ({ config }: Props) => {
       const currentUrl = await getCurrentTabUrl();
       setCurrentUrl(currentUrl);
 
-      const results = [5]; //await githubService.findLinkInRepository(currentUrl);
+      if (!currentUrl) {
+        return currentUrl;
+      }
 
-      setTimeout(() => setIsLinkAlreadySent(results.length > 0), 1000);
+      const isLinkAlreadySentResult = await techPicksArchive.isLinkAlreadySent(currentUrl);
+
+      setIsLinkAlreadySent(isLinkAlreadySentResult);
     }
 
     isCurrentUrlAlreadySent();
