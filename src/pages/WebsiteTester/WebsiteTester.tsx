@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { ConfigModel } from '../Config/config.model';
-import { Space, Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Alert, Space, Spin } from 'antd';
+import { LoadingOutlined, GithubOutlined } from '@ant-design/icons';
 import LinkAlreadySent from './components/LinkAlreadySent/';
 import './WebsiteTester.css'
 import * as chromeExtensionService from '../../services/chrome-extension';
@@ -15,6 +15,7 @@ type Props = {
 
 const WebsiteTester = ({ config }: Props) => {
   const [currentUrl, setCurrentUrl] = useState<string>();
+  const [error, setError] = useState<Error | any>();
   const [isLinkAlreadySent, setIsLinkAlreadySent] = useState<boolean>();
 
   const send = useCallback(async () => {
@@ -53,7 +54,7 @@ const WebsiteTester = ({ config }: Props) => {
       setIsLinkAlreadySent(isLinkAlreadySentResult);
     }
 
-    isCurrentUrlAlreadySent();
+    isCurrentUrlAlreadySent().catch(err => setError(err));
 
     // TODO - on component unmount it should abort the request
   }, []);
@@ -65,7 +66,21 @@ const WebsiteTester = ({ config }: Props) => {
     }
   }, [config, isLinkAlreadySent])
 
-  // TODO - need to show when error occur
+  // TODO - Extract to component
+  if(error) {
+    console.error('If you see this, please add it to your issue', error);
+    return <Alert
+      style={{width: 'max-content'}}
+      message="There was an error"
+      showIcon
+      description={<>There was an error when trying to find out if your link is already been sent or not (error message={error.message})<br/>Please open an issue at <GithubOutlined onClick={() => {
+        const newURL = 'https://github.com/rluvaton/is-already-sent-to-tech-picks-extension';
+        chrome.tabs.create({ url: newURL });}
+      }/></>}
+      type="error"
+    />
+  }
+
   if (isLinkAlreadySent === undefined) {
     return <Spin style={{ padding: '26px' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin/>}/>
   }
