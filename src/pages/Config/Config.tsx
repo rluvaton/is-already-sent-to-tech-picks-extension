@@ -21,12 +21,12 @@ interface ConfigProps {
 const layout: FormProps = {
   labelCol: {
     xs: { span: 24 },
-    sm: { span: 24 },
+    sm: { span: 8 },
     md: { span: 8 },
   },
   wrapperCol: {
     xs: { span: 24 },
-    sm: { span: 24 },
+    sm: { span: 16 },
     md: { span: 16 },
   },
   labelAlign: 'right',
@@ -34,10 +34,11 @@ const layout: FormProps = {
 
 const saveLayout: FormItemLabelProps & FormItemInputProps = {
   wrapperCol: {
+    sm: { offset: 8, span: 2 },
     md: { offset: 8, span: 2 },
     span: 24
   },
-  labelCol: {span: 0}
+  labelCol: { span: 0 }
 };
 
 const Config = ({ config, setConfig }: ConfigProps) => {
@@ -60,7 +61,7 @@ const Config = ({ config, setConfig }: ConfigProps) => {
   };
 
   return (
-    <Content style={{ padding: '50px' }}>
+    <Content className="config-page">
 
       <div>
         <Form

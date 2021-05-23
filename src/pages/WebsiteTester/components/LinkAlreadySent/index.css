@@ -1,0 +1,10 @@
+.link-already-sent-alert .ant-alert-message {
+  /*font-size: 1.3em;*/
+
+  /* Because the emoji and the text are really close*/
+  padding-left: 10px !important;
+}
+
+.link-already-sent-alert span.emoji-mart-emoji > span {
+  vertical-align: middle;
+}
