@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ConfigModel } from '../Config/config.model';
 import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
@@ -6,16 +6,30 @@ import LinkAlreadySent from './components/LinkAlreadySent/';
 import './WebsiteTester.css'
 import * as chromeExtensionService from '../../services/chrome-extension';
 import SendButton from './components/SendButton';
+import { LinkType } from '../Config/link-type.enum';
 
 type Props = {
   config: ConfigModel,
 };
 
 const WebsiteTester = ({ config }: Props) => {
+  const [currentUrl, setCurrentUrl] = useState<string>();
   const [isLinkAlreadySent, setIsLinkAlreadySent] = useState<boolean>();
 
-  useEffect(() => {
+  const send = useCallback(async () => {
+    switch (config?.whatsappSentType) {
+      case LinkType.PREDEFINED_WHATSAPP_GROUP_LINK:
+        // sendToWhatsappGroup(currentUrl);
+        console.log(currentUrl);
+        break;
 
+      case LinkType.NONE:
+      default:
+        return;
+    }
+  }, [config, currentUrl]);
+
+  useEffect(() => {
     async function getCurrentTabUrl() {
       let currentUrl: string | undefined = window.location.href;
 
@@ -27,6 +41,7 @@ const WebsiteTester = ({ config }: Props) => {
 
     async function isCurrentUrlAlreadySent() {
       const currentUrl = await getCurrentTabUrl();
+      setCurrentUrl(currentUrl);
 
       const results = [5]; //await githubService.findLinkInRepository(currentUrl);
 
@@ -44,10 +59,6 @@ const WebsiteTester = ({ config }: Props) => {
       return;
     }
   }, [config, isLinkAlreadySent])
-
-  async function send() {
-
-  }
 
   // TODO - need to show when error occur
   if (isLinkAlreadySent === undefined) {
