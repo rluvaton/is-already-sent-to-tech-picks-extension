@@ -11,12 +11,7 @@ function App() {
 
   return (
     <div className="App">
-      {!(config?.whatsappSentType) && <Config config={config} setConfig={setConfig}/>}
-
-      {config?.whatsappSentType && <WebsiteTester config={config}/>}
-
-      {/* TODO - Remove this before merging to master branch */}
-      <button onClick={() => setConfig(undefined as any)}>Clear</button>
+      {config?.whatsappSentType ? <WebsiteTester config={config}/> : <Config config={config} setConfig={setConfig}/>}
     </div>
   );
 }
