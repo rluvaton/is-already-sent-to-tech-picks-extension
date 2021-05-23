@@ -1,25 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { ConfigModel } from '../Config/config.model';
-import { Spin } from 'antd';
+import { Space, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-
+import LinkAlreadySent from './components/LinkAlreadySent/';
+import './WebsiteTester.css'
+import * as chromeExtensionService from '../../services/chrome-extension';
+import SendButton from './components/SendButton';
 
 type Props = {
   config: ConfigModel,
 };
 
-
 const WebsiteTester = ({ config }: Props) => {
   const [isLinkAlreadySent, setIsLinkAlreadySent] = useState<boolean>();
-  const [isLinkAlreadySentStringified, setIsLinkAlreadySentStringified] = useState<string>('');
 
   useEffect(() => {
 
     async function getCurrentTabUrl() {
       let currentUrl: string | undefined = window.location.href;
 
-      if (chrome.tabs) {
-        [{ url: currentUrl }] = await chrome.tabs.query({ active: true, currentWindow: true })
+      if (chromeExtensionService.isInChromeExtension()) {
+        [{ url: currentUrl }] = await chromeExtensionService.queryTabs({ active: true, currentWindow: true });
       }
       return currentUrl;
     }
@@ -27,7 +28,7 @@ const WebsiteTester = ({ config }: Props) => {
     async function isCurrentUrlAlreadySent() {
       const currentUrl = await getCurrentTabUrl();
 
-      const results = []; //await githubService.findLinkInRepository(currentUrl);
+      const results = [5]; //await githubService.findLinkInRepository(currentUrl);
 
       setTimeout(() => setIsLinkAlreadySent(results.length > 0), 1000);
     }
@@ -38,32 +39,25 @@ const WebsiteTester = ({ config }: Props) => {
   }, []);
 
   useEffect(() => {
-    let stingified = '';
-
-    if (isLinkAlreadySent !== undefined) {
-      stingified = isLinkAlreadySent.toString();
-    }
-
-    setIsLinkAlreadySentStringified(stingified);
-
-  }, [isLinkAlreadySent]);
-
-  useEffect(() => {
     console.log({ isLinkAlreadySent, config });
     if (isLinkAlreadySent === undefined || config === undefined) {
       return;
     }
   }, [config, isLinkAlreadySent])
 
+  async function send() {
 
+  }
+
+  // TODO - need to show when error occur
   if (isLinkAlreadySent === undefined) {
-    return <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin/>}/>
+    return <Spin style={{ padding: '26px' }} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin/>}/>
   }
 
   return (
-    <div>
-      <span>Is Link Already Sent: {isLinkAlreadySentStringified}</span>
-    </div>
+    <Space direction="vertical" className={`website-tester ${isLinkAlreadySent && 'already-sent'}`}>
+      {isLinkAlreadySent ? <LinkAlreadySent send={send}/> : <SendButton send={send}/>}
+    </Space>
   );
 };
 
