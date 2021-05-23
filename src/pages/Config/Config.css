@@ -1,0 +1,22 @@
+.privacy-note {
+  display: flex;
+  margin-left: 15px;
+}
+
+.privacy-note-header {
+  display: flex;
+  align-items: baseline;
+}
+
+.privacy-note-divider {
+  margin-bottom: 5px !important;
+}
+
+.submit-column .ant-form-item-control {
+  padding-left: 5px;
+}
+
+.config-page {
+  padding: 50px;
+  width: 669px !important;
+}
